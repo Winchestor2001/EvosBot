@@ -41,7 +41,7 @@ async def set_lang(user_id: int, lang: str):
     con.commit()
 
 
-async def choose_lang_btn(user_id: int):
+async def get_user_lang(user_id: int):
     con, cur = await sql_connector()
 
     user_lang = cur.execute("SELECT lang FROM users WHERE user_id = ?", (user_id,)).fetchone()

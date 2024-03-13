@@ -16,3 +16,14 @@ async def start_command_btn(lang: str):
         )
 
     return btn
+
+
+async def choose_lang_btn():
+    btn = ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+    btn.add(
+        KeyboardButton(text="🇺🇿 UZ"),
+        KeyboardButton(text="🇷🇺 RU"),
+    )
+    return btn
+
+
