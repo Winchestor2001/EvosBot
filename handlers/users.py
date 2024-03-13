@@ -1,6 +1,7 @@
 from loader import dp
 from aiogram.types import Message, CallbackQuery
 from db.database import add_user
+from keyboards.reply_btn import start_command_btn
 
 
 @dp.message_handler(commands=['start'])
@@ -12,6 +13,7 @@ async def start_command(message: Message):
     if have_lang:
         await message.answer(f"Tilni tanlang\n\nВыберите язык:")
     else:
-        await message.answer(f'Salom')
+        btn = await start_command_btn('uz')
+        await message.answer(f'Salom', reply_markup=btn)
 
 
