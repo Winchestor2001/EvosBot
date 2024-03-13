@@ -36,5 +36,6 @@ async def choose_lang_state(message: Message, state: FSMContext):
         user_id=message.from_user.id,
         lang=lang
     )
+    await start_command(message)
     await state.finish()
 
