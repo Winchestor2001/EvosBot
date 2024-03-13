@@ -16,4 +16,3 @@ async def start_command_btn(lang: str):
         )
 
     return btn
-

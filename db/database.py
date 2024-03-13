@@ -35,6 +35,22 @@ async def add_user(user_id: int, username: str):
     return False
 
 
+async def set_lang(user_id: int, lang: str):
+    con, cur = await sql_connector()
+    cur.execute("UPDATE users SET lang = ? WHERE user_id = ?", (lang, user_id))
+    con.commit()
+
+
+async def choose_lang_btn(user_id: int):
+    con, cur = await sql_connector()
+
+    user_lang = cur.execute("SELECT lang FROM users WHERE user_id = ?", (user_id,)).fetchone()
+
+    return user_lang[0]
+
+
+
+
 
 
 
