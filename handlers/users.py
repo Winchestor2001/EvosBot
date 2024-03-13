@@ -2,6 +2,9 @@ from loader import dp
 from aiogram.types import Message, CallbackQuery
 from db.database import add_user, set_lang, get_user_lang
 from keyboards.reply_btn import start_command_btn, choose_lang_btn
+from states import UserStates
+from aiogram.dispatcher.storage import FSMContext
+from bot_context import languages
 
 
 @dp.message_handler(commands=['start'])
@@ -13,13 +16,15 @@ async def start_command(message: Message):
     if have_lang:
         btn = await choose_lang_btn()
         await message.answer(f"Tilni tanlang\n\nВыберите язык:", reply_markup=btn)
+        await UserStates.choose_lang.set()
     else:
-        btn = await start_command_btn('uz')
-        await message.answer(f'Salom', reply_markup=btn)
+        lang = await get_user_lang(user_id=message.from_user.id)
+        btn = await start_command_btn(lang)
+        await message.answer(languages[lang]['start_command_text'], reply_markup=btn)
 
 
-@dp.message_handler(text=['🇺🇿 UZ', '🇷🇺 RU'])
-async def choose_lang_handler(message: Message):
+@dp.message_handler(state=UserStates.choose_lang)
+async def choose_lang_state(message: Message, state: FSMContext):
     text = message.text
 
     if text == '🇺🇿 UZ':
@@ -31,4 +36,5 @@ async def choose_lang_handler(message: Message):
         user_id=message.from_user.id,
         lang=lang
     )
+    await state.finish()
 
