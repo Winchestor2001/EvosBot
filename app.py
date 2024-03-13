@@ -1,8 +1,10 @@
 from loader import dp
 from aiogram import executor
+from db.database import create_tables
 
 
 async def on_startup(dispatcher):
+    await create_tables()
     import handlers.users
 
 
