@@ -9,6 +9,9 @@ languages = {
             "my_orders_text": "🛍 Mening buyurtmalarim",
             "back_text": "Ortga",
             "change_lang_text": "Tilni o`zgartirish",
+            "location_btn_text": "🗺 Mening manzillarim",
+            "geolocation_btn_text": "📍Geolokatsiyani yuboring",
+            "back_btn_text": "⬅️ Ortga",
         }
     },
     "ru": {
@@ -21,6 +24,9 @@ languages = {
             "my_orders_text": "🛍 Мои заказы",
             "back_text": "Назад",
             "change_lang_text": "Изменить язык",
+            "back_btn_text": "⬅️ Назад",
+            "location_btn_text": "🗺 Мои адрес",
+            "geolocation_btn_text": "📍 Отправить геолокацию",
         }
     },
 }

@@ -32,7 +32,7 @@ async def create_tables():
                 big_product_price REAL NOT NULL,
                 product_img TEXT NOT NULL,
                 category_id INTEGER NOT NULL,
-                FOREIGN KEY (category_id) REFERENCES category(id)
+                FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE
     )""")
 
 
@@ -65,6 +65,16 @@ async def get_user_lang(user_id: int):
     user_lang = cur.execute("SELECT lang FROM users WHERE user_id = ?", (user_id,)).fetchone()
 
     return user_lang[0]
+
+
+async def get_all_categories():
+    con, cur = await sql_connector()
+
+    categories = cur.execute("SELECT * FROM category").fetchall()
+    return categories
+
+
+
 
 
 

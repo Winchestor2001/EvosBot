@@ -1,7 +1,7 @@
 from loader import dp
 from aiogram.types import Message, CallbackQuery
 from db.database import add_user, set_lang, get_user_lang
-from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn
+from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn
 from states import UserStates
 from aiogram.dispatcher.storage import FSMContext
 from bot_context import languages
@@ -55,3 +55,8 @@ async def change_lang_handler(message: Message, state: FSMContext):
     await UserStates.choose_lang.set()
 
 
+@dp.message_handler(text=["🍴 Menu", '🍴 Меню'])
+async def menyu_commad_btn(message: Message):
+    lang = await get_user_lang(user_id=message.from_user.id)
+    btn = await location_btn(lang)
+    await message.answer(languages[lang]['location_text'], reply_markup=btn)

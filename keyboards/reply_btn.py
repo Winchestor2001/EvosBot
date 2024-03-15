@@ -36,4 +36,14 @@ async def settings_btn(lang: str):
     return btn
 
 
+async def location_btn(lang: str):
+    btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    btn.add(
+        KeyboardButton(text=languages[lang]['buttons']['location_btn_text']),
+    )
+    btn.add(
+        KeyboardButton(text=languages[lang]['buttons']['geolocation_btn_text'], request_location=True),
+        KeyboardButton(text=languages[lang]['buttons']['back_btn_text'])    
+    )
+    return btn
 
