@@ -12,7 +12,7 @@ async def start_command_btn(lang: str):
         )
     btn.row(
         KeyboardButton(text="✍️ Оставить отзыв"), 
-        KeyboardButton(text="⚙️ Настройки")
+        KeyboardButton(text=languages[lang]['buttons']['settings_text'])
         )
 
     return btn

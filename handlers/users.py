@@ -42,9 +42,16 @@ async def choose_lang_state(message: Message, state: FSMContext):
 
 
 @dp.message_handler(text=['⚙️ Sozlamalar', '⚙️ Настройки'])
-async def user_settings_handler(message: Message, state: FSMContext):
+async def user_settings_handler(message: Message):
     lang = await get_user_lang(user_id=message.from_user.id)
     btn = await settings_btn(lang=lang)
-    await message.answer(languages[lang]['change_lang_text'])
+    await message.answer(languages[lang]['change_lang_text'], reply_markup=btn)
+
+
+@dp.message_handler(text=['Tilni o`zgartirish', 'Изменить язык'])
+async def change_lang_handler(message: Message, state: FSMContext):
+    btn = await choose_lang_btn()
+    await message.answer(f"Tilni tanlang\n\nВыберите язык:", reply_markup=btn)
+    await UserStates.choose_lang.set()
 
 
