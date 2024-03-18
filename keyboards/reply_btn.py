@@ -47,3 +47,13 @@ async def location_btn(lang: str):
     )
     return btn
 
+
+async def yes_or_no_location_btn(lang: str):
+    btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    btn.add(
+        KeyboardButton(text=languages[lang]['buttons']['yes_btn_text']),
+        KeyboardButton(text=languages[lang]['buttons']['no_btn_text']),    
+        KeyboardButton(text=languages[lang]['buttons']['back_btn_text']),  
+    )
+    return btn
+

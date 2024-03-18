@@ -1,7 +1,7 @@
 from loader import dp
 from aiogram.types import Message, CallbackQuery
 from db.database import add_user, set_lang, get_user_lang
-from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn
+from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn, yes_or_no_location_btn
 from states import UserStates
 from aiogram.dispatcher.storage import FSMContext
 from bot_context import languages
@@ -56,7 +56,18 @@ async def change_lang_handler(message: Message, state: FSMContext):
 
 
 @dp.message_handler(text=["🍴 Menu", '🍴 Меню'])
-async def menyu_commad_btn(message: Message):
+async def menu_commad_handler(message: Message):
     lang = await get_user_lang(user_id=message.from_user.id)
     btn = await location_btn(lang)
     await message.answer(languages[lang]['location_text'], reply_markup=btn)
+
+
+# text, photo, video, sticker, location, voice, audio, contact, animation
+@dp.message_handler(content_types=['location', 'text'])
+async def get_user_location_handler(message: Message):
+    if message.text in ['⬅️ Ortga', '⬅️ Назад', '❌ Yo`q', '❌ Yo`q']:
+        await menu_commad_handler(message)
+        return
+    lang = await get_user_lang(user_id=message.from_user.id)
+    btn = await yes_or_no_location_btn(lang)
+    await message.answer(languages[lang]['is_correct_location'], reply_markup=btn)
