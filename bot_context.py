@@ -17,6 +17,7 @@ languages = {
             "back_btn_text": "⬅️ Ortga",
             "yes_btn_text": "✅ Xa",
             "no_btn_text": "❌ Yo`q",
+            "order_btn_text": "Savat",
         }
     },
     "ru": {
@@ -37,6 +38,7 @@ languages = {
             "geolocation_btn_text": "📍 Отправить геолокацию",
             "yes_btn_text": "✅ Да",
             "no_btn_text": "❌ Нет",
+            "order_btn_text": "Карзинка",
         }
     },
 }

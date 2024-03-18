@@ -58,11 +58,13 @@ async def yes_or_no_location_btn(lang: str):
     return btn
 
 
-async def categories_btn(categories: list):
+async def categories_btn(categories: list, lang: str):
     btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
 
     btn.add(
-        *[KeyboardButton(text=f"{item[1]}") for item in categories]
+        *[KeyboardButton(text=f"{item[1]}") for item in categories],
+        KeyboardButton(text=languages[lang]['buttons']['order_btn_text']),
+        KeyboardButton(text=languages[lang]['buttons']['back_btn_text']),
     )
     return btn
 

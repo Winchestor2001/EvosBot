@@ -66,7 +66,7 @@ async def menu_commad_handler(message: Message):
 @dp.message_handler(content_types=['location', 'text'])
 async def get_user_location_handler(message: Message):
     lang = await get_user_lang(user_id=message.from_user.id)
-    
+
     if message.text in ['⬅️ Ortga', '⬅️ Назад', '❌ Yo`q', '❌ Нет']:
         await menu_commad_handler(message)
         return
@@ -74,7 +74,7 @@ async def get_user_location_handler(message: Message):
     elif message.text in ['✅ Xa', '✅ Да']:
         categories = await get_all_categories()
         print(categories)
-        btn = await categories_btn(categories)
+        btn = await categories_btn(categories, lang)
         await message.answer(languages[lang]['choose_category_text'], reply_markup=btn)
         return
 
