@@ -57,3 +57,12 @@ async def yes_or_no_location_btn(lang: str):
     )
     return btn
 
+
+async def categories_btn(categories: list):
+    btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+
+    btn.add(
+        *[KeyboardButton(text=f"{item[1]}") for item in categories]
+    )
+    return btn
+

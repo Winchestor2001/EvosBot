@@ -4,6 +4,7 @@ languages = {
         "change_lang_text": "Xarakat tanlang:",
         "is_correct_location": "Manzil to`g`rimi?",
         "location_text": "Manzilni yuboring",
+        "choose_category_text": "Bo`limni tanlang:",
 
         "buttons": {
             "settings_text": "⚙️ Sozlamalar",
@@ -23,6 +24,7 @@ languages = {
         "change_lang_text": "Выберите действие:",
         "is_correct_location": "Локация верна?",
         "location_text": "Отправьте локацию",
+        "choose_category_text": "Выберите категорию:",
 
         "buttons": {
             "settings_text": "⚙️ Настройки",
