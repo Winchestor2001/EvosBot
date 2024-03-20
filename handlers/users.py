@@ -1,7 +1,7 @@
 from loader import dp
 from aiogram.types import Message, CallbackQuery
-from db.database import add_user, set_lang, get_user_lang, get_all_categories
-from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn, yes_or_no_location_btn, categories_btn
+from db.database import add_user, set_lang, get_user_lang, get_all_categories, get_products
+from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn, yes_or_no_location_btn, categories_btn, products_btn
 from states import UserStates
 from aiogram.dispatcher.storage import FSMContext
 from bot_context import languages
@@ -62,6 +62,15 @@ async def menu_commad_handler(message: Message):
     await message.answer(languages[lang]['location_text'], reply_markup=btn)
 
 
+@dp.message_handler(content_types=['text'], state=UserStates.choose_category)
+async def choose_category_state(message: Message):
+    lang = await get_user_lang(user_id=message.from_user.id)
+    category_products = await get_products(category=message.text)
+    btn = await products_btn(category_products, lang)
+    await message.answer(languages[lang]['choose_product_text'], reply_markup=btn)
+
+
+
 # text, photo, video, sticker, location, voice, audio, contact, animation
 @dp.message_handler(content_types=['location', 'text'])
 async def get_user_location_handler(message: Message):
@@ -73,10 +82,11 @@ async def get_user_location_handler(message: Message):
 
     elif message.text in ['✅ Xa', '✅ Да']:
         categories = await get_all_categories()
-        print(categories)
         btn = await categories_btn(categories, lang)
         await message.answer(languages[lang]['choose_category_text'], reply_markup=btn)
+        await UserStates.choose_category.set()
         return
-
-    btn = await yes_or_no_location_btn(lang)
-    await message.answer(languages[lang]['is_correct_location'], reply_markup=btn)
+    
+    elif message.content_type == 'location':
+        btn = await yes_or_no_location_btn(lang)
+        await message.answer(languages[lang]['is_correct_location'], reply_markup=btn)

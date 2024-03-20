@@ -5,6 +5,7 @@ languages = {
         "is_correct_location": "Manzil to`g`rimi?",
         "location_text": "Manzilni yuboring",
         "choose_category_text": "Bo`limni tanlang:",
+        "choose_product_text": "Mahsulotni tanlang:",
 
         "buttons": {
             "settings_text": "⚙️ Sozlamalar",
@@ -26,6 +27,7 @@ languages = {
         "is_correct_location": "Локация верна?",
         "location_text": "Отправьте локацию",
         "choose_category_text": "Выберите категорию:",
+        "choose_product_text": "Выберите товар:",
 
         "buttons": {
             "settings_text": "⚙️ Настройки",

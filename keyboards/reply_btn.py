@@ -68,3 +68,30 @@ async def categories_btn(categories: list, lang: str):
     )
     return btn
 
+
+async def products_btn(products: list, lang: str):
+    btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+
+    btn.add(
+        *[KeyboardButton(text=f"{item[1]}") for item in products],
+        KeyboardButton(text=languages[lang]['buttons']['back_btn_text']),
+    )
+    return btn
+
+
+# async def item_buttons_btn(data: list, lang: str, is_cat: bool):
+#     btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+
+#     btn.add(
+#         *[KeyboardButton(text=f"{item[1]}") for item in data],
+#     )
+#     if is_cat:
+#         btn.add(
+#             KeyboardButton(text=languages[lang]['buttons']['order_btn_text']),
+#         )
+#     btn.add(
+#         KeyboardButton(text=languages[lang]['buttons']['back_btn_text']),
+#     )
+#     return btn
+
+# await item_buttons_btn(data=[], lang='ru', is_cat=True)
