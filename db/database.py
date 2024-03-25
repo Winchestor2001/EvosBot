@@ -82,6 +82,11 @@ async def get_products(category: str):
     return products
 
 
+async def get_category_info(category: str):
+    con, cur = await sql_connector()
+    
+
+
 
 
 
