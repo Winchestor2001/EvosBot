@@ -1,7 +1,7 @@
 from loader import dp
 from aiogram.types import Message, CallbackQuery
-from db.database import add_user, set_lang, get_user_lang, get_all_categories, get_products
-from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn, yes_or_no_location_btn, categories_btn, products_btn
+from db.database import add_user, set_lang, get_user_lang, get_all_categories, get_products, get_product_info
+from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn, yes_or_no_location_btn, categories_btn, products_btn, product_btn
 from states import UserStates
 from aiogram.dispatcher.storage import FSMContext
 from bot_context import languages
@@ -63,7 +63,7 @@ async def menu_commad_handler(message: Message):
 
 
 @dp.message_handler(content_types=['text'], state=UserStates.choose_category)
-async def choose_category_state(message: Message):
+async def choose_category_state(message: Message, state: FSMContext):
     lang = await get_user_lang(user_id=message.from_user.id)
 
     if message.text in ['⬅️ Ortga', '⬅️ Назад']:
@@ -75,7 +75,17 @@ async def choose_category_state(message: Message):
         category_products, category_img = await get_products(category=message.text)
         btn = await products_btn(category_products, lang)
         await message.answer_photo(category_img, reply_markup=btn)
-    
+        await UserStates.choose_product.set()
+
+
+@dp.message_handler(content_types=['text'], state=UserStates.choose_product)
+async def choose_product_state(message: Message, state: FSMContext):
+    lang = await get_user_lang(user_id=message.from_user.id)
+    product_info = await get_product_info(product=message.text)
+    context = f"{product_info[1]}\n{product_info[2]}\n\n{product_info[3]}"
+    btn = await product_btn()
+    await message.answer_photo(product_info[4], caption=context, reply_markup=btn)
+    await state.finish()
 
 
 # text, photo, video, sticker, location, voice, audio, contact, animation

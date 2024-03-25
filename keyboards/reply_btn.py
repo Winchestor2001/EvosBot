@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from bot_context import languages
 
 
@@ -95,3 +95,16 @@ async def products_btn(products: list, lang: str):
 #     return btn
 
 # await item_buttons_btn(data=[], lang='ru', is_cat=True)
+
+
+async def product_btn():
+    btn = InlineKeyboardMarkup()
+    btn.add(
+        InlineKeyboardButton(text="➖", callback_data="1"),
+        InlineKeyboardButton(text="1", callback_data="1"),
+        InlineKeyboardButton(text="➕", callback_data="1"),
+        InlineKeyboardButton(text="📥", callback_data="1"),
+    )
+    return btn
+
+

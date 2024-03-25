@@ -28,8 +28,8 @@ async def create_tables():
     cur.execute("""CREATE TABLE IF NOT EXISTS products(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 product_name VARCHAR(100) NOT NULL,
-                mini_product_price REAL NOT NULL,
-                big_product_price REAL NOT NULL,
+                description TEXT NOT NULL,
+                product_price REAL NOT NULL,
                 product_img TEXT NOT NULL,
                 category_id INTEGER NOT NULL,
                 FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE
@@ -82,16 +82,10 @@ async def get_products(category: str):
     return products, category[1]
 
 
-async def get_category_info(category: str):
+async def get_product_info(product: str):
     con, cur = await sql_connector()
+
+    products = cur.execute("SELECT * FROM products WHERE product_name = ?", (product,)).fetchone()
+    return products
     
-
-
-
-
-
-
-
-
-
 
