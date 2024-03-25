@@ -77,9 +77,9 @@ async def get_all_categories():
 async def get_products(category: str):
     con, cur = await sql_connector()
 
-    category_id = cur.execute("SELECT id FROM category WHERE category_name = ?", (category,)).fetchone()
-    products = cur.execute("SELECT * FROM products WHERE category_id = ?", (category_id[0],)).fetchall()
-    return products
+    category = cur.execute("SELECT id, category_img FROM category WHERE category_name = ?", (category,)).fetchone()
+    products = cur.execute("SELECT * FROM products WHERE category_id = ?", (category[0],)).fetchall()
+    return products, category[1]
 
 
 async def get_category_info(category: str):

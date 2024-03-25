@@ -65,10 +65,17 @@ async def menu_commad_handler(message: Message):
 @dp.message_handler(content_types=['text'], state=UserStates.choose_category)
 async def choose_category_state(message: Message):
     lang = await get_user_lang(user_id=message.from_user.id)
-    category_products = await get_products(category=message.text)
-    btn = await products_btn(category_products, lang)
-    await message.answer(languages[lang]['choose_product_text'], reply_markup=btn)
 
+    if message.text in ['⬅️ Ortga', '⬅️ Назад']:
+        categories = await get_all_categories()
+        btn = await categories_btn(categories, lang)
+        await message.answer(languages[lang]['choose_category_text'], reply_markup=btn)
+        await UserStates.choose_category.set()
+    else:
+        category_products, category_img = await get_products(category=message.text)
+        btn = await products_btn(category_products, lang)
+        await message.answer_photo(category_img, reply_markup=btn)
+    
 
 
 # text, photo, video, sticker, location, voice, audio, contact, animation
