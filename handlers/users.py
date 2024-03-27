@@ -1,7 +1,7 @@
 from loader import dp
 from aiogram.types import Message, CallbackQuery
 from db.database import add_user, set_lang, get_user_lang, get_all_categories, get_products, get_product_info
-from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn, yes_or_no_location_btn, categories_btn, products_btn, product_btn
+from keyboards.reply_btn import start_command_btn, choose_lang_btn, settings_btn, location_btn, yes_or_no_location_btn, categories_btn, products_btn, product_btn, back_btn
 from states import UserStates
 from aiogram.dispatcher.storage import FSMContext
 from bot_context import languages
@@ -83,6 +83,9 @@ async def choose_product_state(message: Message, state: FSMContext):
     lang = await get_user_lang(user_id=message.from_user.id)
     product_info = await get_product_info(product=message.text)
     context = f"{product_info[1]}\n{product_info[2]}\n\n{product_info[3]}"
+
+    btn = await back_btn(lang)
+    await message.answer("⏳", reply_markup=btn)
     btn = await product_btn()
     await message.answer_photo(product_info[4], caption=context, reply_markup=btn)
     await state.finish()

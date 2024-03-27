@@ -108,3 +108,10 @@ async def product_btn():
     return btn
 
 
+async def back_btn(lang: str):
+    btn = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+
+    btn.add(
+        KeyboardButton(text=languages[lang]['buttons']['back_btn_text']),
+    )
+    return btn
