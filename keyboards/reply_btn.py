@@ -97,12 +97,12 @@ async def products_btn(products: list, lang: str):
 # await item_buttons_btn(data=[], lang='ru', is_cat=True)
 
 
-async def product_btn():
+async def product_btn(quantity: int = 1):
     btn = InlineKeyboardMarkup()
     btn.add(
-        InlineKeyboardButton(text="➖", callback_data="1"),
-        InlineKeyboardButton(text="1", callback_data="1"),
-        InlineKeyboardButton(text="➕", callback_data="1"),
+        InlineKeyboardButton(text="➖", callback_data="quantity:minus"),
+        InlineKeyboardButton(text=f"{quantity}", callback_data="default"),
+        InlineKeyboardButton(text="➕", callback_data="quantity:plus"),
         InlineKeyboardButton(text="📥", callback_data="1"),
     )
     return btn

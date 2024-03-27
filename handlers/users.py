@@ -96,6 +96,11 @@ async def choose_product_state(message: Message, state: FSMContext):
         await message.answer_photo(product_info[4], caption=context, reply_markup=btn)
 
 
+@dp.callback_query_handler(state=UserStates.choose_product, text_contains='quantity')
+async def product_inline_callback(call: CallbackQuery, state: FSMContext):
+    pass
+
+
 # text, photo, video, sticker, location, voice, audio, contact, animation
 @dp.message_handler(content_types=['location', 'text'])
 async def get_user_location_handler(message: Message):
